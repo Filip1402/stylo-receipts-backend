@@ -29,7 +29,7 @@ async function createPaymentSession(totalAmount) {
     }
 }
 
-async function createWebPaymentSession(products, sourceBaseUrl) {
+async function createWebPaymentSession(products) {
     try {
         const session = await stripe.checkout.sessions.create({
             line_items: products.map(item => {
@@ -46,9 +46,9 @@ async function createWebPaymentSession(products, sourceBaseUrl) {
             }),
             mode: 'payment',
             //success_url: 'http://www.youtube.com',
-            //cancel_url: 'http://www.google.com'
-            success_url: `${sourceBaseUrl}/success`,
-            cancel_url: `${sourceBaseUrl}/cancel`
+            //cancel_url: 'http://www.google.com',
+            success_url: `http://localhost:${process.env.CLIENT_PORT}/success`,
+            cancel_url: `http://localhost:${process.env.CLIENT_PORT}/cancel`
         });
     
         console.log(session.url);
@@ -58,7 +58,6 @@ async function createWebPaymentSession(products, sourceBaseUrl) {
         console.error(err);
         throw err;
     }
-    
 }
 
 module.exports = {
