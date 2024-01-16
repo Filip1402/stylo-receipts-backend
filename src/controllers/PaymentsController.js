@@ -11,6 +11,21 @@ async function createPayment(req, res) {
     }
 }
 
+async function createWebPayment(req, res) {
+    try {
+        const products = req.body;
+        const sourceBaseUrl = `${req.protocol}://${req.hostname}:${req.app.settings.port}`;
+        console.log("Base URL: ", sourceBaseUrl)
+        console.log("Products: ", products);
+        const redirectUrl = await service.createWebPaymentSession(products, sourceBaseUrl);
+        return res.redirect(redirectUrl);
+    }
+    catch(err) {
+        res.status(500).json({error: "Server error"});
+    }
+}
+
 module.exports = {
-    createPayment
+    createPayment,
+    createWebPayment
 };
