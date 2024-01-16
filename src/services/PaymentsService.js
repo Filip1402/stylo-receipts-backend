@@ -45,8 +45,6 @@ async function createWebPaymentSession(products) {
                 }
             }),
             mode: 'payment',
-            //success_url: 'http://www.youtube.com',
-            //cancel_url: 'http://www.google.com',
             success_url: `http://localhost:${process.env.CLIENT_PORT}/success`,
             cancel_url: `http://localhost:${process.env.CLIENT_PORT}/cancel`
         });

@@ -16,7 +16,7 @@ async function createWebPayment(req, res) {
         const products = req.body;
         console.log(products)
         const redirectUrl = await service.createWebPaymentSession(products);
-        return res.redirect(303, redirectUrl);
+        return res.json({stripe_url: redirectUrl});
     }
     catch(err) {
         res.status(500).json({error: "Server error"});
