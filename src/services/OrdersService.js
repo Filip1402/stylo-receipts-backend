@@ -23,7 +23,7 @@ async function createCart(shopping_cart, address, customerId, customerEmail) {
     };
 
     const data = {
-      //customerEmail: customerEmail,
+      customerEmail: customerEmail,
       customerId: customerId,
       currency: "EUR",
       lineItems: getItemsFromCart(shopping_cart),
