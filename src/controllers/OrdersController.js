@@ -8,6 +8,11 @@ async function createOrder(req, res) {
     const response = await service.createOrder(
       cart, shippingAddress, customerId, customerEmail
     );
+    try{
+      await service.sendInvoice(response)
+    } catch(e){
+      console.log(e)
+    }
     return res.status(200).json({ response });
   } catch (err) {
     return res

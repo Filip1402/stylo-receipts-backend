@@ -1,6 +1,7 @@
 const commerceToolsApi = require("../utils/CommerceToolsApiClient");
 const URL_CREATE_CART = `${commerceToolsApi.apiURLBase}/${commerceToolsApi.projectKey}/carts`;
 const URL_CREATE_ORDER = `${commerceToolsApi.apiURLBase}/${commerceToolsApi.projectKey}/orders`;
+const URL_MAILER = "http://emails_api:3003/invoices";
 
 const axios = require("axios");
 
@@ -64,6 +65,14 @@ async function createOrder(shopping_cart, address, customerId, customerEmail) {
   }
 }
 
+async function sendInvoice(response) {
+  const data = {
+    response: response,
+  };
+  await axios.post(URL_MAILER, data, {});
+}
+
 module.exports = {
-  createOrder
+  createOrder,
+  sendInvoice
 }
